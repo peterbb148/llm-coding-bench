@@ -1,6 +1,7 @@
 import time
 import os
 import anthropic
+import models.config  # noqa: F401 — loads .env
 from models.base import ModelResponse
 
 MODEL_ID = "claude-sonnet-4-6"

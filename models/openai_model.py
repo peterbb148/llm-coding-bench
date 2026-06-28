@@ -1,6 +1,7 @@
 import time
 import os
 import openai
+import models.config  # noqa: F401 — loads .env
 from models.base import ModelResponse
 
 MODEL_ID = "gpt-5"
