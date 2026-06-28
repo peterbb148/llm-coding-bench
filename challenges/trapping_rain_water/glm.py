@@ -1,36 +1,37 @@
 def trap(height: list[int]) -> int:
     """
-    Calculate how much water can be trapped after raining.
+    Calculate trapped rain water using a stack-based approach.
 
-    This implementation uses dynamic programming approach:
-    - Precompute left_max and right_max arrays
-    - For each position, water trapped is determined by the minimum of the
-      maximum heights to the left and right
+    The algorithm uses a stack to keep track of indices of bars in increasing order.
+    When we encounter a bar that is lower than the bar at the top of the stack,
+    we pop the stack and calculate water trapped at that position.
+
+    The key insight:
+    - For any position i, water trapped depends on the nearest higher bar to the left and right
+    - The stack helps us efficiently find these boundaries by maintaining a monotonic increasing sequence
 
     Time Complexity: O(n)
     Space Complexity: O(n)
     """
-    n = len(height)
-
-    # Edge cases: no water can be trapped
-    if n == 0 or n == 1:
-        return 0
-
-    # Precompute left_max: maximum height seen from left to current position
-    left_max = [0] * n
-    left_max[0] = height[0]
-    for i in range(1, n):
-        left_max[i] = max(left_max[i - 1], height[i])
-
-    # Precompute right_max: maximum height seen from right to current position
-    right_max = [0] * n
-    right_max[n - 1] = height[n - 1]
-    for i in range(n - 2, -1, -1):
-        right_max[i] = max(right_max[i + 1], height[i])
-
-    # Calculate trapped water at each position
+    stack = []  # Store indices of bars in increasing order of height
     water = 0
-    for i in range(n):
-        water += min(left_max[i], right_max[i]) - height[i]
+
+    for current_index, current_height in enumerate(height):
+        # Process while current bar is higher than bar at stack top
+        while stack and current_height > height[stack[-1]]:
+            top_index = stack.pop()  # Pop the bar that will be the "water level"
+
+            if not stack:  # No left boundary found
+                break
+
+            # Calculate distance between current index and the new top
+            distance = current_index - stack[-1] - 1
+
+            # Calculate the height of water that can be trapped
+            bounded_height = min(current_height, height[stack[-1]]) - height[top_index]
+
+            water += distance * bounded_height
+
+        stack.append(current_index)
 
     return water
