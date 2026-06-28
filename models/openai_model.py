@@ -7,7 +7,7 @@ from models.base import ModelResponse
 MODEL_ID = "gpt-5"
 
 
-def complete(prompt: str, temperature: float = 0) -> ModelResponse:
+def complete(prompt: str) -> ModelResponse:
     client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
     chunks = []
@@ -17,8 +17,7 @@ def complete(prompt: str, temperature: float = 0) -> ModelResponse:
     start = time.perf_counter()
     with client.chat.completions.create(
         model=MODEL_ID,
-        temperature=temperature,
-        max_tokens=2048,
+        max_completion_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
         stream=True,
         stream_options={"include_usage": True},

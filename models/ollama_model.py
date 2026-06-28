@@ -2,10 +2,10 @@ import os
 import httpx
 from models.base import ModelResponse
 
-MODEL_ID = "glm4:flash"
+MODEL_ID = "glm-4.7-flash:latest"
 
 
-def complete(prompt: str, temperature: float = 0) -> ModelResponse:
+def complete(prompt: str) -> ModelResponse:
     host = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
 
     response = httpx.post(
@@ -14,7 +14,6 @@ def complete(prompt: str, temperature: float = 0) -> ModelResponse:
             "model": MODEL_ID,
             "prompt": prompt,
             "stream": False,
-            "options": {"temperature": temperature},
         },
         timeout=120.0,
     )

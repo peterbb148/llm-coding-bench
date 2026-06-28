@@ -7,7 +7,7 @@ from models.base import ModelResponse
 MODEL_ID = "claude-sonnet-4-6"
 
 
-def complete(prompt: str, temperature: float = 0) -> ModelResponse:
+def complete(prompt: str) -> ModelResponse:
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     chunks = []
@@ -17,8 +17,7 @@ def complete(prompt: str, temperature: float = 0) -> ModelResponse:
     start = time.perf_counter()
     with client.messages.stream(
         model=MODEL_ID,
-        max_tokens=2048,
-        temperature=temperature,
+        max_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
     ) as stream:
         for text in stream.text_stream:
