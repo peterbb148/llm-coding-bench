@@ -17,7 +17,7 @@ def complete(prompt: str, temperature: float = 0) -> ModelResponse:
     start = time.perf_counter()
     with client.messages.stream(
         model=MODEL_ID,
-        max_tokens=2048,
+        max_tokens=4096,
         temperature=temperature,
         messages=[{"role": "user", "content": prompt}],
     ) as stream:

@@ -18,7 +18,7 @@ def complete(prompt: str, temperature: float = 0) -> ModelResponse:
     with client.chat.completions.create(
         model=MODEL_ID,
         temperature=temperature,
-        max_tokens=2048,
+        max_completion_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
         stream=True,
         stream_options={"include_usage": True},
