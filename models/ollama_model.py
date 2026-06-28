@@ -2,7 +2,7 @@ import os
 import httpx
 from models.base import ModelResponse
 
-MODEL_ID = "glm4:flash"
+MODEL_ID = "glm-4.7-flash:latest"
 
 
 def complete(prompt: str, temperature: float = 0) -> ModelResponse:
