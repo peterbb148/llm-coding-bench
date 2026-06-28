@@ -7,7 +7,7 @@ from models.base import ModelResponse
 MODEL_ID = "gpt-5"
 
 
-def complete(prompt: str, temperature: float = 0) -> ModelResponse:
+def complete(prompt: str) -> ModelResponse:
     client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
     chunks = []
