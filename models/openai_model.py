@@ -4,7 +4,7 @@ import openai
 import models.config  # noqa: F401 — loads .env
 from models.base import ModelResponse
 
-MODEL_ID = "gpt-5"
+MODEL_ID = "gpt-5.4"
 
 
 def complete(prompt: str) -> ModelResponse:
